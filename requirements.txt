@@ -1,0 +1,9 @@
+Pyrogram 
+ Tgcrypto 
+ Pymongo[srv] 
+ Motor 
+ Marshmallow 
+ Umongo 
+ Requests 
+ Aiofiles 
+ imdbpy==2021.4.18
