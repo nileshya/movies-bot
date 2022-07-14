@@ -24,168 +24,90 @@
  # Repo Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot 
  # License Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot/blob/LuciferMoringstar-Robot/LICENSE 
   
- import re, base64, os, requests, json, logging 
- from struct import pack 
- from pyrogram.file_id import FileId 
- from pymongo.errors import DuplicateKeyError 
- from umongo import Instance, Document, fields 
- from motor.motor_asyncio import AsyncIOMotorClient 
- from marshmallow.exceptions import ValidationError 
- from LuciferMoringstar_Robot import DATABASE_URI, DATABASE_NAME, temp 
+ import motor.motor_asyncio, datetime 
+ from LuciferMoringstar_Robot import DATABASE_NAME, DATABASE_URI, SINGLE_BUTTON, REQUEST_MOVIE, SPELL_MODE, SPELL_TEXT, WELCOME_TEXT, MELCOW_NEW_USERS, MOVIE_TEXT, CUSTOM_FILE_CAPTION, SAVE_FILES, FILE_MODE     
   
- logger = logging.getLogger(__name__) 
- logger.setLevel(logging.INFO) 
+ class Database: 
+      
+     def __init__(self, uri, database_name): 
+         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri) 
+         self.db = self._client[database_name] 
+         self.dcol = self.db.users 
+         self.grp = self.db.groups 
+          
+     def new_user(self, id): 
+         return dict( 
+             id = id, 
+             join_date = datetime.date.today().isoformat() 
+         )         
   
- client = AsyncIOMotorClient(DATABASE_URI) 
- db = client[DATABASE_NAME] 
- instance = Instance.from_db(db) 
-  
- @instance.register 
- class Media(Document): 
-     file_id = fields.StrField(attribute='_id') 
-     file_ref = fields.StrField(allow_none=True) 
-     file_name = fields.StrField(required=True) 
-     file_size = fields.IntField(required=True) 
-     file_type = fields.StrField(allow_none=True) 
-     mime_type = fields.StrField(allow_none=True) 
-     caption = fields.StrField(allow_none=True) 
-  
-     class Meta: 
-         indexes = ('$file_name', ) 
-         collection_name = "Telegram_files" 
-  
-  
- async def save_file(media): 
-     """Save file in database""" 
-  
-     # TODO: Find better way to get same file_id for same media to avoid duplicates 
-     file_id, file_ref = unpack_new_file_id(media.file_id) 
-     file_name = re.sub(r"(_|\-|\.|\+)", " ", str(media.file_name)) 
-     try: 
-         file = Media( 
-             file_id=file_id, 
-             file_ref=file_ref, 
-             file_name=file_name, 
-             file_size=media.file_size, 
-             file_type=media.file_type, 
-             mime_type=media.mime_type, 
-             caption=media.caption.html if media.caption else None, 
+     def new_group(self, id, title): 
+         return dict( 
+             id = id, 
+             title = title, 
+             chat_status = dict(is_disabled=False, reason="") 
          ) 
-     except ValidationError: 
-         logger.exception('Error occurred while saving file in database') 
-         return False, 2 
-     else: 
-         try: 
-             await file.commit() 
-         except DuplicateKeyError:       
-             logger.warning( 
-                 f'{getattr(media, "file_name", "NO_FILE")} is already saved in database' 
-             ) 
   
-             return False, 0 
-         else: 
-             logger.info(f'{getattr(media, "file_name", "NO_FILE")} is saved to database') 
-             return True, 1 
+     async def add_user(self, id): 
+         user = self.new_user(id) 
+         await self.dcol.insert_one(user) 
   
+     async def is_user_exist(self, id): 
+         user = await self.dcol.find_one({'id':int(id)}) 
+         return bool(user) 
   
- async def get_search_results(query, file_type=None, max_results=temp.filterBtns, offset=0): 
-     """For given query return (results, next_offset)""" 
+     async def total_users_count(self): 
+         count = await self.dcol.count_documents({}) 
+         return count 
   
-     query = query.strip() 
-     if not query: 
-         raw_pattern = '.' 
-     elif ' ' not in query: 
-         raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])' 
-     else: 
-         raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]') 
+     async def get_all_users(self): 
+         return self.dcol.find({}) 
   
-     try: 
-         regex = re.compile(raw_pattern, flags=re.IGNORECASE) 
-     except: 
-         return [] 
+     async def delete_user(self, user_id): 
+         await self.dcol.delete_many({'id': int(user_id)}) 
   
-     if False: 
-         filter = {'$or': [{'file_name': regex}, {'caption': regex}]} 
-     else: 
-         filter = {'file_name': regex} 
+     async def add_chat(self, chat, title): 
+         chat = self.new_group(chat, title) 
+         await self.grp.insert_one(chat) 
+      
+     async def get_chat(self, chat): 
+         chat = await self.grp.find_one({'id':int(chat)}) 
+         return False if not chat else chat.get('chat_status') 
+              
+     async def update_settings(self, id, settings): 
+         await self.grp.update_one({'id': int(id)}, {'$set': {'settings': settings}}) 
+         
+     async def get_settings(self, id): 
+         default = { 
+             'button': SINGLE_BUTTON, 
+             'photo': REQUEST_MOVIE, 
+             'spellmode': SPELL_MODE, 
+             'spelltext': SPELL_TEXT, 
+             'welcometext': WELCOME_TEXT, 
+             'welcome': MELCOW_NEW_USERS, 
+             'template': MOVIE_TEXT, 
+             'caption': CUSTOM_FILE_CAPTION, 
+             'savefiles': SAVE_FILES, 
+             'filemode': FILE_MODE 
+         } 
+         chat = await self.grp.find_one({'id':int(id)}) 
+         if chat: 
+             return chat.get('settings', default) 
+         return default 
+      
+     async def disable_chat(self, chat, reason="No Reason"): 
+         chat_status = dict(is_disabled=True, reason=reason)            
+         await self.grp.update_one({'id': int(chat)}, {'$set': {'chat_status': chat_status}}) 
   
-     if file_type: 
-         filter['file_type'] = file_type 
+     async def re_enable_chat(self, id): 
+         chat_status = dict(is_disabled=False, reason="")        
+         await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}}) 
+   
+     async def total_chat_count(self): 
+         count = await self.grp.count_documents({}) 
+         return count 
+      
+     async def get_all_chats(self): 
+         return self.grp.find({}) 
   
-     total_results = await Media.count_documents(filter) 
-     next_offset = offset + max_results 
-  
-     if next_offset > total_results: 
-         next_offset = '' 
-  
-     cursor = Media.find(filter) 
-     # Sort by recent 
-     cursor.sort('$natural', -1) 
-     # Slice files according to offset and max results 
-     cursor.skip(offset).limit(max_results) 
-     # Get list of files 
-     files = await cursor.to_list(length=max_results) 
-  
-     return files, next_offset, total_results 
-  
-  
- async def get_filter_results(query): 
-     query = query.strip() 
-     if not query: 
-         raw_pattern = '.' 
-     elif ' ' not in query: 
-         raw_pattern = r'(\b|[\.\+\-_])' + query + r'(\b|[\.\+\-_])' 
-     else: 
-         raw_pattern = query.replace(' ', r'.*[\s\.\+\-_]') 
-     try: 
-         regex = re.compile(raw_pattern, flags=re.IGNORECASE) 
-     except: 
-         return [] 
-     filter = {'file_name': regex} 
-     total_results = await Media.count_documents(filter) 
-     cursor = Media.find(filter) 
-     cursor.sort('$natural', -1) 
-     files = await cursor.to_list(length=int(total_results)) 
-     return files 
-  
- async def get_file_details(query): 
-     filter = {'file_id': query} 
-     cursor = Media.find(filter) 
-     file_details_pr0fess0r99 = await cursor.to_list(length=1) 
-     return file_details_pr0fess0r99 
-  
- def encode_file_id(s: bytes) -> str: 
-     r = b"" 
-     n = 0 
-  
-     for i in s + bytes([22]) + bytes([4]): 
-         if i == 0: 
-             n += 1 
-         else: 
-             if n: 
-                 r += b"\x00" + bytes([n]) 
-                 n = 0 
-  
-             r += bytes([i]) 
-  
-     return base64.urlsafe_b64encode(r).decode().rstrip("=") 
-  
-  
- def encode_file_ref(file_ref: bytes) -> str: 
-     return base64.urlsafe_b64encode(file_ref).decode().rstrip("=") 
-  
-  
- def unpack_new_file_id(new_file_id): 
-     """Return file_id, file_ref""" 
-     decoded = FileId.decode(new_file_id) 
-     file_id = encode_file_id( 
-         pack( 
-             "<iiqq", 
-             int(decoded.file_type), 
-             decoded.dc_id, 
-             decoded.media_id, 
-             decoded.access_hash 
-         ) 
-     ) 
-     file_ref = encode_file_ref(decoded.file_reference) 
-     return file_id, file_ref
+ db = Database(DATABASE_URI, DATABASE_NAME)
