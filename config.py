@@ -12,14 +12,14 @@
   
   
  # Creator 
- CREATOR_NAME = os.environ.get("CREATOR_NAME", "𝙼𝚄𝙷𝙰𝙼𝙼𝙴𝙳") 
- CREATOR_USERNAME = os.environ.get("CREATOR_USERNAME", "PR0FESS0_99") 
+ CREATOR_NAME = os.environ.get("CREATOR_NAME", "CHARLEY") 
+ CREATOR_USERNAME = os.environ.get("CREATOR_USERNAME", "OBSTREPEROUS_20") 
   
  # Account 
- API_HASH = os.environ.get("API_HASH", "5b1d0992294a67cb54512a4fafeb0c88") 
- API_ID = os.environ.get("API_ID", "6170803") 
+ API_HASH = os.environ.get("API_HASH", "a319f80ac07376f1043a5a09d9baad3c") 
+ API_ID = os.environ.get("API_ID", "13358890") 
  # About Bot 
- BOT_TOKEN = os.environ.get("BOT_TOKEN", "1905228806:AAH2iahJcg5J6bqpcW11jB9KajwHbIjaslGTY") 
+ BOT_TOKEN = os.environ.get("BOT_TOKEN", "5511952184:AAFXbSGw_KLdfR-WWzwi-C_y09g_GwbPu2g") 
  PICS = os.environ.get("PICS", "https://telegra.ph/file/034d53b5ed1d920ecab8b.jpg") 
  # Database 
  DATABASE_NAME = os.environ.get("DATABASE_NAME", "LuciferMoringstar-Robot") 
