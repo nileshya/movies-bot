@@ -21,7 +21,7 @@
  class=FileHandler 
  level=ERROR 
  formatter=fileFormatter 
- args=('LuciferMoringstarLogs.txt','w',) 
+ args=('CharlieMovieBotLogs.txt','w',) 
   
  [formatter_consoleFormatter] 
  format=%(asctime)s - %(lineno)d - %(name)s - %(module)s - %(levelname)s - %(message)s 
