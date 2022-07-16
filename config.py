@@ -28,9 +28,9 @@
  ADMINS = os.environ.get("ADMINS", "1142482938 5179879782") 
  SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "HO_Tech_Group") 
  AUTH_CHANNEL = os.environ.get("AUTH_CHANNEL", "-1001600984322") 
- CHANNELS = [int(ch) if search.search(ch) else ch for ch in os.environ.get("CHANNELS", "-1001784382279").split()] 
- LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "-1001590063851") 
- GET_FILECHANNEL = os.environ.get("GET_FILECHANNEL", "-1001570208190") 
+ CHANNELS = [int(ch) if search.search(ch) else ch for ch in os.environ.get("CHANNELS", "-1001740705569").split()] 
+ LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "-1001681189608") 
+ GET_FILECHANNEL = os.environ.get("GET_FILECHANNEL", "-1001701289887") 
  FILTER_DEL_SECOND = int(os.environ.get("FILTER_DEL_SECOND", "600")) 
   
  # AutoFilter 
