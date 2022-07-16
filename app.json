@@ -10,8 +10,8 @@
        "pyrogram", 
        "bot" 
      ], 
-     "website": "https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot", 
-     "repository": "https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot", 
+     "website": "https://github.com/nileshya/movies-bot", 
+     "repository": "https://github.com/nileshya/movies-bot", 
      "env": { 
          "API_HASH": { 
              "description": "Get this value from :- https://youtu.be/5eEsvLAKVc0", 
@@ -65,7 +65,7 @@
          }, 
          "SUPORT_CHAT": { 
              "description": "Backup Support, With out @", 
-             "value": "Mo_Tech_YT", 
+             "value": "HO_Tech_YT", 
              "required": true 
          }, 
          "CHANNELS": { 
@@ -73,13 +73,13 @@
              "value": "" 
          }, 
          "CREATOR_NAME": { 
-             "description": "Creator Name eg Muhammed Rk", 
-             "value": "Muhammed", 
+             "description": "Creator Name eg CHARLIE", 
+             "value": "Charlie", 
              "required": false 
          }, 
          "CREATOR_USERNAME": { 
              "description": "Creator Username Without @", 
-             "value": "Pr0fess0r_99", 
+             "value": "obstreperous_20", 
              "required": false 
          }, 
          "FILTER_BUTTONS": { 
