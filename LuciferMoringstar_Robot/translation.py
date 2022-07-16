@@ -1,6 +1,6 @@
 # MIT License 
   
- # Copyright (c) 2022 Muhammed 
+ # Copyright (c) 2022 Charlie
   
  # Permission is hereby granted, free of charge, to any person obtaining a copy 
  # of this software and associated documentation files (the "Software"), to deal 
@@ -20,9 +20,9 @@
  # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
  # SOFTWARE. 
   
- # Telegram Link : https://telegram.dog/Mo_Tech_Group 
- # Repo Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot 
- # License Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot/blob/LuciferMoringstar-Robot/LICENSE 
+ # Telegram Link : https://telegram.dog/HO_Tech_Group 
+ # Repo Link : https://github.com/nileshya/movies-bot 
+ # License Link : https://github.com/nileshya/movies-bot/blob/main/LICENSE 
   
  START_MESSAGE = """ 
  👋Hello {mention}..! 
@@ -38,8 +38,8 @@
  ABOUT_MESSAGE = """ 
  𝙱𝙾𝚃 𝚃𝚈𝙿𝙴 : 𝙰𝚄𝚃𝙾𝙵𝙸𝙻𝚃𝙴𝚁 
  𝙱𝙾𝚃 𝙱𝚁𝙰𝙽𝙲𝙷 : 𝙻𝚄𝙲𝙸𝙵𝙴𝚁 
- 𝙱𝙾𝚃 𝙻𝙸𝙲𝙴𝙽𝚂𝙴 : [𝙲𝙻𝙸𝙲𝙺 𝙷𝙴𝚁𝙴](https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot/blob/LuciferMoringstar-Robot/LICENSE) 
- 𝙳𝙴𝚅𝙴𝙻𝙾𝙿𝙴𝚁 : [𝙼𝚄𝙷𝙰𝙼𝙼𝙴𝙳](t.me/PR0FESS0R_99) 
+ 𝙱𝙾𝚃 𝙻𝙸𝙲𝙴𝙽𝚂𝙴 : [𝙲𝙻𝙸𝙲𝙺 𝙷𝙴𝚁𝙴](https://github.com/nileshya/movies-bot/blob/main/LICENSE) 
+ 𝙳𝙴𝚅𝙴𝙻𝙾𝙿𝙴𝚁 : [Charlie](t.me/Gujar_j_2_bot) 
  𝙲𝚁𝙴𝙰𝚃𝙾𝚁 : [{name}](https://t.me/{username}) 
  𝙻𝙰𝙽𝙶𝚄𝙰𝙶𝙴 : 𝙿𝚈𝚃𝙷𝙾𝙽3 : {py3_version} 
  𝙻𝙸𝙱𝚁𝙰𝚁𝚈 : 𝙿𝚈𝚁𝙾𝙶𝚁𝙰𝙼 : {pyro_version} 
