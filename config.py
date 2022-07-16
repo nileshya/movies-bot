@@ -1,6 +1,6 @@
 # MIT License 
- # Copyright (c) 2022 Muhammed 
- import os, re 
+ # Copyright (c) 2022 Charlie
+ import os, re 
  search = re.compile(r'^.\d+$') 
  def is_enabled(value, default): 
      if value.lower() in ["true", "yes", "1", "enable", "y"]: 
@@ -25,9 +25,9 @@
  DATABASE_NAME = os.environ.get("DATABASE_NAME", "LuciferMoringstar-Robot") 
  DATABASE_URI = os.environ.get("DATABASE_URI", "mongodb+srv://{Username}:{Passs}@cluster0.{clusterID}.mongodb.net/myFirstDatabase?retryWrites=true{iD}=majority") 
  # Chats & Users 
- ADMINS = os.environ.get("ADMINS", "2028425293 1637186875") 
- SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "Mo_Tech_Group") 
- AUTH_CHANNEL = os.environ.get("AUTH_CHANNEL", "-1001685151224") 
+ ADMINS = os.environ.get("ADMINS", "1142482938 5179879782") 
+ SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "HO_Tech_Group") 
+ AUTH_CHANNEL = os.environ.get("AUTH_CHANNEL", "-1001600984322") 
  CHANNELS = [int(ch) if search.search(ch) else ch for ch in os.environ.get("CHANNELS", "-1001784382279").split()] 
  LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "-1001590063851") 
  GET_FILECHANNEL = os.environ.get("GET_FILECHANNEL", "-1001570208190") 
