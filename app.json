@@ -1,5 +1,5 @@
 { 
-     "name": "LuciferMoringstar-Robot", 
+     "name": "movies-bot", 
      "description": "When you going to send File on Telegram Channel this bot will save that in database, So you can get file in Bot PM", 
      "stack": "container", 
      "keywords": [ 
