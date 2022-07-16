@@ -45,7 +45,7 @@
  async def log_file(bot, update): 
      """Send log file""" 
      try: 
-         await update.reply_document('LuciferMoringstarLogs.txt') 
+         await update.reply_document('CharlieMovieBotLogs.txt') 
      except Exception as e: 
          await update.reply(str(e)) 
   
