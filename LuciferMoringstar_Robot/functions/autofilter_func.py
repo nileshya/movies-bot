@@ -1,6 +1,6 @@
 # MIT License 
   
- # Copyright (c) 2022 Muhammed 
+ # Copyright (c) 2022 Charlie 
   
  # Permission is hereby granted, free of charge, to any person obtaining a copy 
  # of this software and associated documentation files (the "Software"), to deal 
@@ -20,9 +20,11 @@
  # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
  # SOFTWARE. 
   
- # Telegram Link : https://telegram.dog/Mo_Tech_Group 
- # Repo Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot 
- # License Link : https://github.com/PR0FESS0R-99/LuciferMoringstar-Robot/blob/LuciferMoringstar-Robot/LICENSE 
+# Telegram Link : https://telegram.dog/HO_Tech_Group 
+
+ # Repo Link : https://github.com/nileshya/movies-bot 
+
+ # License Link : https://github.com/nileshya/movies-bot/blob/main/LICENSE
   
  def split_list(l, n): 
      for i in range(0, len(l), n): 
