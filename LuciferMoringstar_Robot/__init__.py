@@ -1,5 +1,5 @@
 # MIT License 
- # Copyright (c) 2022 Muhammed 
+ # Copyright (c) 2022 Charlie 
  from os import environ 
  from config import ( is_enabled, search, AUTH_GROUPS, AUTH_USERS, ADMINS, SUPPORT_CHAT, CREATOR_USERNAME, CREATOR_NAME, AUTH_CHANNEL, 
      PICS, BOT_TOKEN, API_ID, API_HASH, DATABASE_NAME, DATABASE_URI, CHANNELS, LOG_CHANNEL, FILTER_BUTTONS, GET_FILECHANNEL, FILTER_DEL_SECOND ) 
